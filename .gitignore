@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+charts
+diagrams
+models
+bin
+
+__pycache__
+
