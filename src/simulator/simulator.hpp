@@ -25,6 +25,7 @@ class Simulator {
 		void runDouble();
 		void runSplit();
 		void runStand();
+		void runHit();
 		void simulatorRunOnce();
 
 	private:

@@ -28,6 +28,7 @@ class Table {
 		void runDouble();
 		void runSplit();
 		void runStand();
+		void runHit();
 		void dealCards(Hand *hand);
 		void show(Card *card);
 		Player *getPlayer() {

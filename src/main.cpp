@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
 	simulator.runDouble();
 	simulator.runSplit();
 	simulator.runStand();
+	simulator.runHit();
 
 	std::cout << "End: " << STRIKER_WHO_AM_I << std::endl;
 

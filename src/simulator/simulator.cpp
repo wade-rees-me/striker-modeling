@@ -74,18 +74,22 @@ void Simulator::runStand() {
     printf("  --------------------------------------------------------------------------------\n");
 }
 
-/*
-// Function to run the simulation
-void Simulator::simulatorRunSimulation() {
-	std::cout << "    Start: " + parameters->strategy + " table session" << std::endl;
-	table->session(parameters->strategy == "mimic");
-	std::cout << "    End: table session" << std::endl;
+// The simulator process function
+void Simulator::runHit() {
+	//Simulation simulation;
+    char buffer[MAX_BUFFER_SIZE];
 
-	//report.total_bet += table->getPlayer()->getReport()->total_bet;
-	//report.total_won += table->getPlayer()->getReport()->total_won;
-	report.total_rounds += table->getReport()->total_rounds;
-	report.total_hands += table->getReport()->total_hands;
-	report.duration += table->getReport()->duration;
+    std::snprintf(buffer, sizeof(buffer), "  Start: simulation %s", parameters->name);
+	std::cout << buffer << std::endl;
+	//table = new Table(parameters, rules, strategy);
+	report = Report();
+	table->runHit();
+    std::snprintf(buffer, sizeof(buffer), "  End: simulation");
+	std::cout << buffer << std::endl;
+
+    printf("\n  -- results ---------------------------------------------------------------------\n");
+    printf("    %-24s: %lld\n", "Number of hands", report.total_hands);
+    printf("    %-24s: %lld seconds\n", "Total time", report.duration);
+    printf("  --------------------------------------------------------------------------------\n");
 }
-*/
 

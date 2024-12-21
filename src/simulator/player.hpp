@@ -41,6 +41,8 @@ class Player {
 		void writeSplit(Card *up);
 		void playStand(Card* up, Shoe* shoe);
 		void writeStand(Card* up);
+		void playHit(Card* up, Shoe* shoe);
+		void writeHit(Card* up);
 
 		void playSplitHand(Wager *w, Shoe *shoe, Card *up);
 		void drawCard(Hand *hand, Card *card);

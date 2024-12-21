@@ -137,21 +137,69 @@ void Table::runStand() {
 			player->placeBet();
 
 			dealCards(player->getWager());
+			if (dealer->isBlackjack()) {
+				continue;
+			}
 
-			if (!dealer->isBlackjack()) {
-				//player->playStand(up, shoe);
-				if (!player->bustedOrBlackjack()) {
-					while (!dealer->shouldStand()) {
-						Card *card = shoe->drawCard();
-						dealer->drawCard(card);
-						player->showCard(card);
-					}
+			player->playStand(up, shoe);
+			if (!player->bustedOrBlackjack()) {
+				while (!dealer->shouldStand()) {
+					Card *card = shoe->drawCard();
+					dealer->drawCard(card);
+					//player->showCard(card);
 				}
 			}
 
-			player->showCard(down);
+			//player->showCard(down);
 			player->payoff(dealer->isBlackjack(), dealer->isBusted(), dealer->getHandTotal());
 			player->writeStand(up);
+		}
+	}
+	std::cout << "\n";
+
+	report.end = std::time(nullptr);
+	report.duration = report.end - report.start;
+	std::snprintf(buffer, sizeof(buffer), "      End: table\n");
+	std::cout << buffer;
+}
+
+//
+void Table::runHit() {
+    char buffer[256];
+	std::snprintf(buffer, sizeof(buffer), "      Start: table, playing %lld hands", parameters->number_of_hands);
+	std::cout << buffer << std::endl;
+
+	report.start = std::time(nullptr);
+	report.total_hands = 0;
+	report.total_rounds = 0;
+	while (report.total_hands < parameters->number_of_hands) {
+		status(report.total_rounds, report.total_hands);
+		shoe->shuffle();
+		player->shuffle();
+		report.total_rounds++;
+
+		while (!shoe->shouldShuffle()) {
+			report.total_hands++;
+			dealer->reset();
+			player->placeBet();
+
+			dealCards(player->getWager());
+			if (dealer->isBlackjack()) {
+				continue;
+			}
+
+			player->playHit(up, shoe);
+			if (!player->bustedOrBlackjack()) {
+				while (!dealer->shouldStand()) {
+					Card *card = shoe->drawCard();
+					dealer->drawCard(card);
+					//player->showCard(card);
+				}
+			}
+
+			//player->showCard(down);
+			player->payoff(dealer->isBlackjack(), dealer->isBusted(), dealer->getHandTotal());
+			player->writeHit(up);
 		}
 	}
 	std::cout << "\n";

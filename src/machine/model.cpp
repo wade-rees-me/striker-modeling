@@ -2,7 +2,7 @@
 
 //
 Model::Model(std::string strategy, std::string playbook) {
-	filenameDouble = "./models/" + playbook + "-" + strategy + "-double.csv";
+	filenameDouble = "./data/" + playbook + "-" + strategy + "-double.csv";
     fileDouble.open(filenameDouble);
     if (!fileDouble.is_open()) {
         std::cerr << "Error: Could not open the file: " << filenameDouble << std::endl;
@@ -10,7 +10,7 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileDouble << "win,total,soft,up\n";
 
-	filenameSplit = "./models/" + playbook + "-" + strategy + "-split.csv";
+	filenameSplit = "./data/" + playbook + "-" + strategy + "-split.csv";
     fileSplit.open(filenameSplit);
     if (!fileSplit.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
@@ -18,13 +18,21 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileSplit << "win,total,up\n";
 
-	filenameStand = "./models/" + playbook + "-" + strategy + "-stand.csv";
+	filenameStand = "./data/" + playbook + "-" + strategy + "-stand.csv";
     fileStand.open(filenameStand);
     if (!fileStand.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
 		exit(1);
     }
     fileStand << "win,total,soft,up\n";
+
+	filenameHit = "./data/" + playbook + "-" + strategy + "-hit.csv";
+    fileHit.open(filenameHit);
+    if (!fileHit.is_open()) {
+        std::cerr << "Error: Could not open the file." << std::endl;
+		exit(1);
+    }
+    fileHit << "win,total,soft,up\n";
 }
 
 //
@@ -37,31 +45,14 @@ Model::~Model() {
 
 	fileStand.flush();
     fileStand.close();
-}
 
-/*
-//
-void Model::saveStrategy(int total, int soft, int up) {
-	buffer = "";
-	buffer.append(std::to_string(total));
-	buffer.append(",");
-	buffer.append(std::to_string(soft));
-	buffer.append(",");
-	buffer.append(std::to_string(up));
+	fileHit.flush();
+    fileHit.close();
 }
-
-//
-void Model::saveStrategy(int pair, int up) {
-	buffer = "";
-	buffer.append(std::to_string(pair));
-	buffer.append(",");
-	buffer.append(std::to_string(up));
-}
-*/
 
 //
 void Model::writeDoubleStrategy(int total, int soft, int win, int up) {
-	fileDouble << (win / 2) << ",";
+	fileDouble << win << ",";
 	fileDouble << (std::to_string(total)) << ",";
 	fileDouble << (std::to_string(soft)) << ",";
 	fileDouble << (std::to_string(up)) << std::endl;
@@ -70,19 +61,27 @@ void Model::writeDoubleStrategy(int total, int soft, int win, int up) {
 
 //
 void Model::writeSplitStrategy(int total, int win, int up) {
-	fileSplit << (win / 2) << ",";
+	fileSplit << win << ",";
 	fileSplit << (std::to_string(total)) << ",";
 	fileSplit << (std::to_string(up)) << std::endl;
-	fileSplit << "\n";
 	fileSplit.flush();
 }
 
 //
-void Model::writeStandStrategy(int total, int soft, int win, int up) {
-	fileStand << (win / 2) << ",";
+void Model::writeStandStrategy(int total, bool soft, int win, int up) {
+	fileStand << win << ",";
 	fileStand << (std::to_string(total)) << ",";
-	fileStand << (std::to_string(soft)) << ",";
+	fileStand << (std::to_string(soft ? 1 : 0)) << ",";
 	fileStand << (std::to_string(up)) << std::endl;
 	fileStand.flush();
+}
+
+//
+void Model::writeHitStrategy(int total, bool soft, int win, int up) {
+	fileHit << win << ",";
+	fileHit << (std::to_string(total)) << ",";
+	fileHit << (std::to_string(soft ? 1 : 0)) << ",";
+	fileHit << (std::to_string(up)) << std::endl;
+	fileHit.flush();
 }
 

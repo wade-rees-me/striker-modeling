@@ -19,7 +19,8 @@ void Player::shuffle() {
 void Player::placeBet() {
 	splits.clear();
 	wager.reset();
-	int bet = strategy->getBet(seen_cards);
+	//int bet = strategy->getBet(seen_cards);
+	int bet = 2;
 	wager.placeAmountBet(bet);
 }
 
@@ -83,11 +84,43 @@ void Player::playStand(Card *up, Shoe *shoe) {
 //
 void Player::writeStand(Card *up) {
 	if (wager.isSoft()) {
-		model->writeStandStrategy(wager.getHandTotal(), 1, wager.getAmountWon(), up->getOffset());
+		model->writeStandStrategy(wager.getHandTotal(), wager.isSoft(), wager.getAmountWon(), up->getOffset());
+		return;
 	}
-	model->writeStandStrategy(wager.getHandTotal(), 0, wager.getAmountWon(), up->getOffset());
+	model->writeStandStrategy(wager.getHandTotal(), wager.isSoft(), wager.getAmountWon(), up->getOffset());
 	if (wager.getHandTotal() == 20) {
-		model->writeStandStrategy(21, 0, wager.getAmountWon(), up->getOffset());
+		model->writeStandStrategy(21, wager.isSoft(), wager.getAmountWon(), up->getOffset());
+	}
+/*
+	if (wager.getHandTotal() == 17) {
+		wager.displayHand();
+	}
+*/
+}
+
+// Play the hand
+void Player::playHit(Card *up, Shoe *shoe) {
+	total = wager.getHandTotal();
+	soft = wager.isSoft();
+
+	bool doStand = false;
+	while (!wager.isBusted() && !doStand) {
+		drawCard(&wager, shoe->drawCard());
+		if (!wager.isBusted()) {
+			doStand = strategy->getStand(seen_cards, wager.getHandTotal(), wager.isSoft(), up);
+		}
+	}
+}
+
+//
+void Player::writeHit(Card *up) {
+	if (soft) {
+		model->writeHitStrategy(total, soft, wager.getAmountWon(), up->getOffset());
+		return;
+	}
+	model->writeHitStrategy(total, soft, wager.getAmountWon(), up->getOffset());
+	if (total == 20) {
+		model->writeHitStrategy(21, soft, wager.getAmountWon(), up->getOffset());
 	}
 }
 

@@ -37,3 +37,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 clean:
 	rm -f $(OBJ_DIR)/*.o $(OBJ_DIR)/*/*.o $(TARGET)
 
+run-command:
+	@echo "Running a command in a Makefile"
+	@echo "cp striker-c++/src/cards src/cards"
+	@echo "cp striker-c++/src/table src/table"
+	@ls -l
+

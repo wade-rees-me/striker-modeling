@@ -22,3 +22,11 @@ void Wager::splitHand(Wager *split) {
 	split->drawCard(splitPair());
 }
 
+void Wager::displayHand() {
+	for (const auto& card : cards) {
+		std::cout << card->getRank() << ", ";
+	}
+	std::cout << getHandTotal() << ", " << isSoft() << ": ";
+	std::cout << amount_bet << ": " << amount_won << std::endl;
+}
+

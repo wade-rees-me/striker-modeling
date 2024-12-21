@@ -23,12 +23,14 @@ class Model {
     	std::string filenameStand;
     	std::ofstream fileStand;
 
+    	std::string filenameHit;
+    	std::ofstream fileHit;
+
 	public:
-		//void saveStrategy(int total, int soft, int up);
-		//void saveStrategy(int pair, int up);
 		void writeDoubleStrategy(int total, int soft, int win, int up);
 		void writeSplitStrategy(int total, int win, int up);
-		void writeStandStrategy(int total, int soft, int win, int up);
+		void writeStandStrategy(int total, bool soft, int win, int up);
+		void writeHitStrategy(int total, bool soft, int win, int up);
 };
 
 #endif // MODEL_HPP
