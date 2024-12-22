@@ -5,6 +5,8 @@ import matplotlib.patches as patches
 import numpy as np
 import pandas as pd
 import model
+import utility
+import constant
 
 TITLE_SOFT_DOUBLE = "Player should double with soft %s vs dealer up card"
 TITLE_HARD_DOUBLE = "Player should double with hard %s vs dealer up card"
@@ -12,15 +14,13 @@ TITLE_PAIR_SPLIT = "Player should split a pair of %s vs dealer up card"
 TITLE_SOFT_STAND = "Player should stand with soft %s vs dealer up card"
 TITLE_HARD_STAND = "Player should stand with hard %s vs dealer up card"
 
-cards = ['twos', 'threes', 'fours', 'fives', 'sixes', 'sevens', 'eights', 'nines', 'tens', 'jacks', 'queens', 'kings', 'aces']
-
 #
 #
 #
 def build_diagrams(decks, label):
     print("  Building diagrams (" + decks + ")...")
 
-    basic_chart = model.load_json_file("./charts/" + decks + "-basic.json")
+    basic_chart = utility.load_json_file("./charts/" + decks + "-basic.json")
 
     build_double(12, 22, decks, label + TITLE_SOFT_DOUBLE, "double-soft", "double-soft-", basic_chart["soft-double"])
     build_double(4, 22, decks, label + TITLE_HARD_DOUBLE, "double-hard", "double-hard-", basic_chart["hard-double"])
@@ -34,8 +34,8 @@ def build_diagrams(decks, label):
 def build_double(beg, end, decks, title, hand, option, basic):
     path = "./models/" + decks + "/"
     for total in range(beg, end):
-        model_linear = model.load_json_file(path + "linear-" + option + str(total) + ".json")
-        model_polynomial = model.load_json_file(path + "polynomial-" + option + str(total) + ".json")
+        model_linear = utility.load_json_file(path + "linear-" + option + str(total) + ".json")
+        model_polynomial = utility.load_json_file(path + "polynomial-" + option + str(total) + ".json")
         build_strategy_images(decks, title, hand, str(total), model_linear, model_polynomial, basic[str(total)])
 
 #
@@ -44,9 +44,9 @@ def build_double(beg, end, decks, title, hand, option, basic):
 def build_split(beg, end, decks, title, hand, basic):
     path = "./models/" + decks + "/"
     for pair in range(beg, end):
-        model_linear = model.load_json_file(path + "linear-pair-split-" + model.pairs[pair] + ".json")
-        model_polynomial = model.load_json_file(path + "polynomial-pair-split-" + model.pairs[pair] + ".json")
-        build_strategy_images(decks, title, hand, cards[pair], model_linear, model_polynomial, basic[model.pairs[pair]])
+        model_linear = utility.load_json_file(path + "linear-pair-split-" + constant.pairs[pair] + ".json")
+        model_polynomial = utility.load_json_file(path + "polynomial-pair-split-" + constant.pairs[pair] + ".json")
+        build_strategy_images(decks, title, hand, constant.cards[pair], model_linear, model_polynomial, basic[constant.pairs[pair]])
 
 #
 #

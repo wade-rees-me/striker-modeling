@@ -2,6 +2,8 @@
 
 import os
 import model
+import utility
+import constant
 
 #
 #
@@ -15,7 +17,7 @@ def build_charts(strategy, decks):
 
     f1.write('  "pair-split":{\n')
     for pair in range(0, 13):
-        f1.write('    "' + ("%s" % model.pairs[pair]) + '": [ ')
+        f1.write('    "' + ("%s" % constant.pairs[pair]) + '": [ ')
         build_charts_pair_split_row(f1, strategy, decks, pair)
         f1.write(' ]')
         if pair != 12:
@@ -59,11 +61,11 @@ def build_charts_stand(f1, beg, end, strategy, decks, option):
 #
 #
 def build_charts_double_row(f1, decks, strategy, total, option):
-    model_double = model.load_json_file("./models/" + decks + "/" + strategy + "-double-" + option + "-" + str(total) + ".json")
-    model_stand = model.load_json_file("./models/" + decks + "/" + strategy + "-stand-" + option + "-" + str(total) + ".json")
-    model_hit = model.load_json_file("./models/" + decks + "/" + strategy + "-hit-" + option + "-" + str(total) + ".json")
+    model_double = utility.load_json_file("./models/" + decks + "/" + strategy + "-double-" + option + "-" + str(total) + ".json")
+    model_stand = utility.load_json_file("./models/" + decks + "/" + strategy + "-stand-" + option + "-" + str(total) + ".json")
+    model_hit = utility.load_json_file("./models/" + decks + "/" + strategy + "-hit-" + option + "-" + str(total) + ".json")
     if total == 12:
-        model_split = model.load_json_file("./models/" + decks + "/" + strategy + "-pair-split-" + "A" + ".json")
+        model_split = utility.load_json_file("./models/" + decks + "/" + strategy + "-pair-split-" + "A" + ".json")
     else:
         model_split = None
 
@@ -85,13 +87,13 @@ def build_charts_pair_split_row(f1, strategy, decks, pair):
     total = (pair + 2) * 2
     if pair > 8:
         total = 20
-    model_split = model.load_json_file("./models/" + decks + "/" + strategy + "-pair-split-" + model.pairs[pair] + ".json")
+    model_split = utility.load_json_file("./models/" + decks + "/" + strategy + "-pair-split-" + constant.pairs[pair] + ".json")
     if pair == 12: # aces
-        model_stand = model.load_json_file("./models/" + decks + "/" + strategy + "-stand-soft-" + str(12) + ".json")
-        model_hit = model.load_json_file("./models/" + decks + "/" + strategy + "-hit-soft-" + str(12) + ".json")
+        model_stand = utility.load_json_file("./models/" + decks + "/" + strategy + "-stand-soft-" + str(12) + ".json")
+        model_hit = utility.load_json_file("./models/" + decks + "/" + strategy + "-hit-soft-" + str(12) + ".json")
     else:
-        model_stand = model.load_json_file("./models/" + decks + "/" + strategy + "-stand-hard-" + str(total) + ".json")
-        model_hit = model.load_json_file("./models/" + decks + "/" + strategy + "-hit-hard-" + str(total) + ".json")
+        model_stand = utility.load_json_file("./models/" + decks + "/" + strategy + "-stand-hard-" + str(total) + ".json")
+        model_hit = utility.load_json_file("./models/" + decks + "/" + strategy + "-hit-hard-" + str(total) + ".json")
 
     for up in range(0, 13):
         predict_split = model_split['predictions'][up]
@@ -105,8 +107,8 @@ def build_charts_pair_split_row(f1, strategy, decks, pair):
 #
 #
 def build_charts_stand_row(f1, decks, strategy, total, option):
-    model_stand = model.load_json_file("./models/" + decks + "/" + strategy + "-stand-" + option + "-" + str(total) + ".json")
-    model_hit = model.load_json_file("./models/" + decks + "/" + strategy + "-hit-" + option + "-" + str(total) + ".json")
+    model_stand = utility.load_json_file("./models/" + decks + "/" + strategy + "-stand-" + option + "-" + str(total) + ".json")
+    model_hit = utility.load_json_file("./models/" + decks + "/" + strategy + "-hit-" + option + "-" + str(total) + ".json")
 
     for up in range(0, 13):
         predict_stand = model_stand['predictions'][up]
@@ -121,7 +123,7 @@ def build_charts_stand_row(f1, decks, strategy, total, option):
 def open_chart(decks, strategy):
     file = open("charts/" + decks + "-" + strategy + ".json", "w")
     file.write('{\n')
-    file.write('  "playbook": "' + decks + '-linear",\n')
+    file.write('  "playbook": "' + decks + '-' + strategy + '",\n')
     file.write('  "counts": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],\n')
     file.write('  "bets": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],\n')
     return file
