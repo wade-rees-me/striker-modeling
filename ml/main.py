@@ -30,9 +30,9 @@ if __name__ == "__main__":
     chart.build_charts(POLYNOMIAL, DOUBLE_DECK)
     chart.build_charts(POLYNOMIAL, SIX_SHOE)
 
-    diagram.build_diagrams(SINGLE_DECK)
-    diagram.build_diagrams(DOUBLE_DECK)
-    diagram.build_diagrams(SIX_SHOE)
+    diagram.build_diagrams(SINGLE_DECK, "Single Deck: ")
+    diagram.build_diagrams(DOUBLE_DECK, "Double Deck: ")
+    diagram.build_diagrams(SIX_SHOE, "Six Shoe: ")
 
     print("Ending...\n")
 
