@@ -11,20 +11,21 @@ def filter_csv_by_total(csv_list, total_value):
     #print("Filtered list for ", total_value)
     filtered_list = [row for row in csv_list if row.get("total") == str(total_value)]
 
-    # Initialize counts dictionary
-    counts = {str(up): {'4': 0, '3': 0, '2': 0, '0': 0, '-2': 0, '-3': 0, '-4': 0} for up in range(13)}
+    ## Initialize counts dictionary
+    #counts = {str(up): {'4': 0, '3': 0, '2': 0, '0': 0, '-2': 0, '-3': 0, '-4': 0} for up in range(13)}
+#
+#    # Count occurrences
+#    for entry in filtered_list:
+#        up = entry['up']
+#        win = entry['win']
+#        if up in counts and win in counts[up]:
+#            counts[up][win] += 1
+#
+#    # Print the counts
+#    #for up, win_counts in counts.items():
+#    #    print(f"Up={up}: {win_counts}")
 
-    # Count occurrences
-    for entry in filtered_list:
-        up = entry['up']
-        win = entry['win']
-        if up in counts and win in counts[up]:
-            counts[up][win] += 1
-
-    # Print the counts
-    #for up, win_counts in counts.items():
-    #    print(f"Up={up}: {win_counts}")
-
+    #print("Shape of filtered list:", filtered_list.shape)
     return filtered_list
 
 #

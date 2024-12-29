@@ -33,6 +33,14 @@ Model::Model(std::string strategy, std::string playbook) {
 		exit(1);
     }
     fileHit << "win,total,soft,up\n";
+
+	filenameAll = "./data/" + playbook + "-" + strategy + ".csv";
+    fileAll.open(filenameAll);
+    if (!fileAll.is_open()) {
+        std::cerr << "Error: Could not open the file." << std::endl;
+		exit(1);
+    }
+    fileAll << "play,total,soft,up,win\n";
 }
 
 //
@@ -48,6 +56,9 @@ Model::~Model() {
 
 	fileHit.flush();
     fileHit.close();
+
+	fileAll.flush();
+    fileAll.close();
 }
 
 //
@@ -57,6 +68,7 @@ void Model::writeDoubleStrategy(int total, int soft, int win, int up) {
 	fileDouble << (std::to_string(soft)) << ",";
 	fileDouble << (std::to_string(up)) << std::endl;
 	fileDouble.flush();
+    writeStrategy(total, 1, soft, win, up);
 }
 
 //
@@ -65,23 +77,36 @@ void Model::writeSplitStrategy(int total, int win, int up) {
 	fileSplit << (std::to_string(total)) << ",";
 	fileSplit << (std::to_string(up)) << std::endl;
 	fileSplit.flush();
+    writeStrategy(total, 2, 0, win, up);
 }
 
 //
-void Model::writeStandStrategy(int total, bool soft, int win, int up) {
+void Model::writeStandStrategy(int total, int soft, int win, int up) {
 	fileStand << win << ",";
 	fileStand << (std::to_string(total)) << ",";
-	fileStand << (std::to_string(soft ? 1 : 0)) << ",";
+	fileStand << (std::to_string(soft)) << ",";
 	fileStand << (std::to_string(up)) << std::endl;
 	fileStand.flush();
+    writeStrategy(total, 3, soft, win, up);
 }
 
 //
-void Model::writeHitStrategy(int total, bool soft, int win, int up) {
+void Model::writeHitStrategy(int total, int soft, int win, int up) {
 	fileHit << win << ",";
 	fileHit << (std::to_string(total)) << ",";
-	fileHit << (std::to_string(soft ? 1 : 0)) << ",";
+	fileHit << (std::to_string(soft)) << ",";
 	fileHit << (std::to_string(up)) << std::endl;
 	fileHit.flush();
+    writeStrategy(total, 4, soft, win, up);
+}
+
+//
+void Model::writeStrategy(int total, int play, int soft, int win, int up) {
+	fileAll << (std::to_string(play) ) << ",";
+	fileAll << (std::to_string(total)) << ",";
+	fileAll << (std::to_string(soft)) << ",";
+	fileAll << (std::to_string(up)) << ",";
+	fileAll << (std::to_string(win)) << std::endl;
+	fileAll.flush();
 }
 

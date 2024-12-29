@@ -2,6 +2,7 @@
 
 import linear
 import polynomial
+import dnn
 import utility
 import constant
 
@@ -13,6 +14,8 @@ def build_models(strategy, decks):
 
     data_file = utility.load_models(strategy, decks)
     basic_chart = utility.load_json_file("./charts/" + decks + "-basic.json")
+
+    dnn.train_dnn_save("./data/" + decks + "-basic.csv", "./models/" + decks + "/dnn-" + decks + "-tf-model.keras")
 
     for hard_total in range(4, 22):
         #print("    Hard Total: ", hard_total)
