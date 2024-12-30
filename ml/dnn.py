@@ -20,7 +20,7 @@ from sklearn.preprocessing import StandardScaler
 import constant
 
 LOSS = 'binary_crossentropy'
-EPOCHS = 8
+EPOCHS = 12
 BATCH_SIZE = 32
 
 #

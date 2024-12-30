@@ -126,29 +126,6 @@ def build_charts_stand_row(f1, decks, strategy, total, option):
 #
 #
 #
-def open_chart(decks, strategy):
-    file = open("charts/" + decks + "-" + strategy + ".json", "w")
-    file.write('{\n')
-    file.write('  "playbook": "' + decks + '-' + strategy + '",\n')
-    file.write('  "counts": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],\n')
-    file.write('  "bets": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],\n')
-    return file
-
-#
-#
-#
-def close_chart(file):
-    file.write('  "insurance": "N"\n')
-    file.write('}\n')
-    file.close()
-
-
-
-
-
-#
-#
-#
 def build_charts_neural(strategy, decks):
     print("  Building chart files (" + strategy + " " + decks + ")...")
 
@@ -259,4 +236,23 @@ def get_prediction(play, total, option, up, model):
     data_df = dnn.normalize_data_frame(data_df)
     data_df = data_df.values.reshape(1, -1)
     return model.predict(data_df)
+
+#
+#
+#
+def open_chart(decks, strategy):
+    file = open("charts/" + decks + "-" + strategy + ".json", "w")
+    file.write('{\n')
+    file.write('  "playbook": "' + decks + '-' + strategy + '",\n')
+    file.write('  "counts": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],\n')
+    file.write('  "bets": [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],\n')
+    return file
+
+#
+#
+#
+def close_chart(file):
+    file.write('  "insurance": "N"\n')
+    file.write('}\n')
+    file.close()
 
