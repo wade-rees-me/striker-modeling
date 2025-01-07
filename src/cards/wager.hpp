@@ -64,7 +64,6 @@ class Wager : public Hand {
 		void lostInsurance() {
 			insurance_won = -insurance_bet;
 		}
-		void displayHand();
 };
 
 #endif // WAGER_HPP

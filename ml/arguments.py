@@ -26,6 +26,6 @@ class Arguments:
         print("  --help                                   Show this help message")
         print("  --version                                Display the program version")
         print("  -M, --model                              Build models")
-        print("  -C, --chart                              Use the basic player strategy")
-        print("  -D, --diagram                            Use the linear regression player strategy")
+        print("  -C, --chart                              Build the player strategy charts")
+        print("  -D, --diagram                            Build the diagrams")
 

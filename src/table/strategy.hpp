@@ -7,6 +7,8 @@
 #include <map>
 #include <nlohmann/json.hpp>
 #include "request.hpp"
+#include "chart.hpp"
+#include "shoe.hpp"
 #include "card.hpp"
 
 //
@@ -18,15 +20,14 @@ class Strategy : public Request {
 		int number_of_cards;
 
 	public:
-    	std::string Playbook;
-    	std::vector<int> Counts;
-    	std::vector<int> Bets;
-    	std::string Insurance;
-    	std::map<std::string, std::vector<std::string>> SoftDouble;
-    	std::map<std::string, std::vector<std::string>> HardDouble;
-    	std::map<std::string, std::vector<std::string>> PairSplit;
-    	std::map<std::string, std::vector<std::string>> SoftStand;
-    	std::map<std::string, std::vector<std::string>> HardStand;
+		std::string Playbook;
+		std::vector<int> Counts;
+		std::string Insurance;
+		Chart SoftDouble;
+		Chart HardDouble;
+		Chart PairSplit;
+		Chart SoftStand;
+		Chart HardStand;
 
 	public:
 		int getBet(const int* seenCards);
@@ -40,6 +41,7 @@ class Strategy : public Request {
 		bool processValue(const char* value, int trueCount, bool missing);
 		int getRunningCount(const int* seenCards);
 		int getTrueCount(const int* seenCards, int runningCount);
+		void printCount();
 };
 
 #endif // STRATEGY_HPP

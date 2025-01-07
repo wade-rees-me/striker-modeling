@@ -238,3 +238,7 @@ void Table::status(int64_t round, int64_t hand) {
 	}
 }
 
+void Table::write() {
+	player->write();
+}
+

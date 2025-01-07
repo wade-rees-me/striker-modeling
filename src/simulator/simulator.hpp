@@ -27,9 +27,9 @@ class Simulator {
 		void runStand();
 		void runHit();
 		void simulatorRunOnce();
+		void write();
 
 	private:
-		//void simulatorRunSimulation();
 		void simulatorInsert(Simulation* sdt, std::string playbook);
 };
 

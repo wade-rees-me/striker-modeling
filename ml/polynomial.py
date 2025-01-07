@@ -10,13 +10,16 @@ from sklearn.metrics import mean_squared_error, r2_score
 #
 #
 #
-def train_polynomial_regression_save(file_name, data_dict, y_column, degree=4):
+def train_polynomial_regression_save(file_name, data_dict, y_column, drop_columns, degree=4):
     # Convert the dictionary to a DataFrame
     df = pd.DataFrame(data_dict)
 
     # Separate features (X) and target (y)
-    X = df.drop(columns=[y_column, 'total'])
-    y = df[y_column]
+    #X = df.drop(columns=[y_column, 'total'])
+    #y = df[y_column]
+    y = df['win']
+    #X = df.drop(columns=['win', 'total', 'pair'])
+    X = df.drop(columns=drop_columns)
 
     # Split data into training and test sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -49,7 +52,7 @@ def train_polynomial_regression_save(file_name, data_dict, y_column, degree=4):
     }
 
     predictions = []
-    for up in range(0, 13):
+    for up in range(2, 12):
         new_data = {
             'up': [up]
         }

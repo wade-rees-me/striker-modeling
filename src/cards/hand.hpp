@@ -9,7 +9,7 @@ class Hand {
 	public:
 		Hand();
 
-	protected:
+	private:
 		std::vector<Card*> cards;
 		int hand_total = 0;
 		int soft_ace = false;

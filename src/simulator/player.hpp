@@ -56,6 +56,7 @@ class Player {
 		Report *getReport() {
 			return &report;
 		}
+		void write();
 
 	private:
 		void splitHand(Card *up, Shoe *shoe, Wager *wager);

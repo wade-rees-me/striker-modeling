@@ -7,7 +7,7 @@
 #include "table.hpp"
 #include "player.hpp"
 #include "simulator.hpp"
-#include "constants.hpp"
+//#include "constants.hpp"
 
 //
 Simulator::Simulator(Parameters* parameters, Rules* rules, Strategy* strategy)
@@ -91,5 +91,9 @@ void Simulator::runHit() {
     printf("    %-24s: %lld\n", "Number of hands", report.total_hands);
     printf("    %-24s: %lld seconds\n", "Total time", report.duration);
     printf("  --------------------------------------------------------------------------------\n");
+}
+
+void Simulator::write() {
+	table->write();
 }
 

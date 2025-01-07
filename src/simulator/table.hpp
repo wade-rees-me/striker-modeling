@@ -37,6 +37,7 @@ class Table {
 		Report *getReport() {
 			return &report;
 		}
+		void write();
 
 	private:
 		void status(int64_t round, int64_t hand);

@@ -7,9 +7,20 @@ import csv
 #
 # Filter the list of dictionaries where "total" equals the specified value
 #
-def filter_csv_by_total(csv_list, total_value):
+def filter_csv(csv_list, tag, value):
+    print("Filtered list for " + tag + " = " + value)
+    #filtered_list = [row for row in csv_list if row.get(tag) == str(total_value)]
+    filtered_list = [row for row in csv_list if row == value]
+    #print("Shape of filtered list:", filtered_list.shape)
+    return filtered_list
+
+#
+# Filter the list of dictionaries where "total" equals the specified value
+#
+def filter_csv_by_total(csv_list, tag, total_value):
     #print("Filtered list for ", total_value)
-    filtered_list = [row for row in csv_list if row.get("total") == str(total_value)]
+    #filtered_list = [row for row in csv_list if row.get(tag) == str(total_value)]
+    filtered_list = [row for row in csv_list if row == str(total_value)]
 
     ## Initialize counts dictionary
     #counts = {str(up): {'4': 0, '3': 0, '2': 0, '0': 0, '-2': 0, '-3': 0, '-4': 0} for up in range(13)}

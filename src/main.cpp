@@ -8,7 +8,7 @@
 #include "rules.hpp"
 #include "strategy.hpp"
 #include "simulator.hpp"
-#include "constants.hpp"
+//#include "constants.hpp"
 
 //
 int main(int argc, char* argv[]) {
@@ -28,6 +28,8 @@ int main(int argc, char* argv[]) {
 	simulator.runSplit();
 	simulator.runStand();
 	simulator.runHit();
+
+	simulator.write();
 
 	std::cout << "End: " << STRIKER_WHO_AM_I << std::endl;
 

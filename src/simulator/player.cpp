@@ -38,13 +38,13 @@ void Player::playDouble(Card *up, Shoe *shoe) {
 //
 void Player::writeDouble(Card *up) {
 	if (total == 21) {
-		model->writeDoubleStrategy(21, HARD, 0 - wager.getAmountBet(), up->getOffset());
+		model->writeDoubleStrategy(HARD, 21, up->getValue(), 0 - wager.getAmountBet());
 	}
 	if (soft) {
-		model->writeDoubleStrategy(total, SOFT, wager.getAmountWon(), up->getOffset());
+		model->writeDoubleStrategy(SOFT, total, up->getValue(), wager.getAmountWon());
 		return;
 	}
-	model->writeDoubleStrategy(total, HARD, wager.getAmountWon(), up->getOffset());
+	model->writeDoubleStrategy(HARD, total, up->getValue(), wager.getAmountWon());
 }
 
 // Play the hand
@@ -77,7 +77,7 @@ void Player::writeSplit(Card *up) {
 	for (const auto& split : splits) {
 		win += split->getAmountWon();
 	}
-	model->writeSplitStrategy(splitCard->getOffset(), win, up->getOffset());
+	model->writeSplitStrategy(splitCard->getValue(), win, up->getValue());
 }
 
 // Play the hand
@@ -88,13 +88,13 @@ void Player::playStand(Card *up, Shoe *shoe) {
 //
 void Player::writeStand(Card *up) {
 	if (wager.getHandTotal() == 21) {
-		model->writeStandStrategy(21, HARD, wager.getAmountWon(), up->getOffset());
+		model->writeStandStrategy(21, HARD, wager.getAmountWon(), up->getValue());
 	}
 	if (wager.isSoft()) {
-		model->writeStandStrategy(wager.getHandTotal(), SOFT, wager.getAmountWon(), up->getOffset());
+		model->writeStandStrategy(wager.getHandTotal(), SOFT, wager.getAmountWon(), up->getValue());
 		return;
 	}
-	model->writeStandStrategy(wager.getHandTotal(), HARD, wager.getAmountWon(), up->getOffset());
+	model->writeStandStrategy(wager.getHandTotal(), HARD, wager.getAmountWon(), up->getValue());
 }
 
 // Play the hand
@@ -114,13 +114,13 @@ void Player::playHit(Card *up, Shoe *shoe) {
 //
 void Player::writeHit(Card *up) {
 	if (soft) {
-		model->writeHitStrategy(total, SOFT, wager.getAmountWon(), up->getOffset());
+		model->writeHitStrategy(total, SOFT, wager.getAmountWon(), up->getValue());
 		return;
 	}
 	if (total == 20) {
-		model->writeHitStrategy(21, HARD, 0 - wager.getAmountBet(), up->getOffset());
+		model->writeHitStrategy(21, HARD, 0 - wager.getAmountBet(), up->getValue());
 	}
-	model->writeHitStrategy(total, HARD, wager.getAmountWon(), up->getOffset());
+	model->writeHitStrategy(total, HARD, wager.getAmountWon(), up->getValue());
 }
 
 //
@@ -154,7 +154,7 @@ void Player::drawCard(Hand* hand, Card* card) {
 
 // Show the card
 void Player::showCard(Card* card) {
-	seen_cards[card->getOffset()]++;
+	seen_cards[card->getValue()]++;
 }
 
 // Check if player busted or has blackjack
@@ -235,5 +235,9 @@ bool Player::mimicStand() {
 		return false;
 	}
 	return wager.getHandTotal() >= 17;
+}
+
+void Player::write() {
+	model->write();
 }
 
