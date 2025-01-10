@@ -57,13 +57,13 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileHit << "play,soft,total,pair,up,win\n";
 
-	filenameAll = "./data/" + playbook + "-" + strategy + ".csv";
-    fileAll.open(filenameAll);
-    if (!fileAll.is_open()) {
-        std::cerr << "Error: Could not open the file." << std::endl;
-		exit(1);
-    }
-    fileAll << "play,soft,total,pair,up,win\n";
+	//filenameAll = "./data/" + playbook + "-" + strategy + ".csv";
+    //fileAll.open(filenameAll);
+    //if (!fileAll.is_open()) {
+        //std::cerr << "Error: Could not open the file." << std::endl;
+		//exit(1);
+    //}
+    //fileAll << "play,soft,total,pair,up,win\n";
 
 	filenameSummary = "./data/" + playbook + "-" + strategy + "-summary.csv";
     fileSummary.open(filenameSummary);
@@ -88,8 +88,8 @@ Model::~Model() {
 	fileHit.flush();
     fileHit.close();
 
-	fileAll.flush();
-    fileAll.close();
+	//fileAll.flush();
+    //fileAll.close();
 }
 
 //
@@ -139,13 +139,13 @@ void Model::writeStrategy(std::ofstream& fileOut, int play, int soft, int total,
 
 //
 void Model::writeAllStrategy(int play, int soft, int total, int pair, int up, int win) {
-	fileAll << (str_play[play]) << ",";
-	fileAll << (str_soft[soft]) << ",";
-	fileAll << (total > 0 ? std::to_string(total) : "") << ",";
-	fileAll << (str_cards[pair]) << ",";
-	fileAll << (str_cards[up]) << ",";
-	fileAll << (std::to_string(win)) << std::endl;
-	fileAll.flush();
+	//fileAll << (str_play[play]) << ",";
+	//fileAll << (str_soft[soft]) << ",";
+	//fileAll << (total > 0 ? std::to_string(total) : "") << ",";
+	//fileAll << (str_cards[pair]) << ",";
+	//fileAll << (str_cards[up]) << ",";
+	//fileAll << (std::to_string(win)) << std::endl;
+	//fileAll.flush();
 
 	summary[play][soft][total][pair][up] += win;
 	count[play][soft][total][pair][up]++;

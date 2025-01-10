@@ -15,10 +15,7 @@ def train_polynomial_regression_save(file_name, data_dict, y_column, drop_column
     df = pd.DataFrame(data_dict)
 
     # Separate features (X) and target (y)
-    #X = df.drop(columns=[y_column, 'total'])
-    #y = df[y_column]
     y = df['win']
-    #X = df.drop(columns=['win', 'total', 'pair'])
     X = df.drop(columns=drop_columns)
 
     # Split data into training and test sets

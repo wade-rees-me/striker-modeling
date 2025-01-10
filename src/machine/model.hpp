@@ -28,8 +28,8 @@ class Model {
     	std::string filenameHit;
     	std::ofstream fileHit;
 
-    	std::string filenameAll;
-    	std::ofstream fileAll;
+    	//std::string filenameAll;
+    	//std::ofstream fileAll;
 
     	std::string filenameSummary;
     	std::ofstream fileSummary;

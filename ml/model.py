@@ -12,8 +12,6 @@ import constant
 def build_models(strategy, decks):
     print("  Building model files (" + strategy + " " + decks + ")...")
 
-    #neural.train_neural_save("./data/" + decks + "-basic.csv", "./models/" + decks + "/neural-" + decks + "-tf-model.keras")
-
     data_file = utility.load_models(strategy, decks)
     basic_chart = utility.load_json_file("./charts/" + decks + "-basic.json")
 

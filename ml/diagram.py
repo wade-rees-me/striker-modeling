@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 import pandas as pd
-import dnn
+import neural
 import model
 import utility
 import constant
@@ -24,7 +24,6 @@ def build_diagrams(decks, label):
     print("  Building diagrams (" + decks + ")...")
 
     basic_chart = utility.load_json_file("./charts/" + decks + "-basic.json")
-    model = load_model("./models/" + decks + "/dnn-" + decks + "-tf-model.keras")
 
     build_double(12, 22, decks, label + TITLE_SOFT_DOUBLE, "double-soft", "double-soft-", basic_chart["soft-double"], model, 1, 'soft')
     build_double(4, 22, decks, label + TITLE_HARD_DOUBLE, "double-hard", "double-hard-", basic_chart["hard-double"], model, 1, 'hard')
@@ -41,7 +40,8 @@ def build_double(beg, end, decks, title, hand, option, basic, model, playX, opti
         print("Double: " + str(total))
         model_linear = utility.load_json_file(path + "linear-" + option + str(total) + ".json")
         model_polynomial = utility.load_json_file(path + "polynomial-" + option + str(total) + ".json")
-        build_strategy_images(decks, title, hand, str(total), model_linear, model_polynomial, basic[str(total)], model, playX, optionX, total, 0)
+        model_neural = load_model(path + "/neural-double-" + optionX + "-" + str(total) + "-tf.keras")
+        build_strategy_images(decks, title, hand, str(total), model_linear, model_polynomial, basic[str(total)], model_neural, playX, optionX, total, 0)
 
 #
 #
@@ -53,18 +53,19 @@ def build_split(beg, end, decks, title, hand, basic, model, play, option):
         print("Split: " + str(pair))
         model_linear = utility.load_json_file(path + "linear-pair-split-" + constant.pairs[pair] + ".json")
         model_polynomial = utility.load_json_file(path + "polynomial-pair-split-" + constant.pairs[pair] + ".json")
-        build_strategy_images(decks, title, hand, constant.cards[pair], model_linear, model_polynomial, basic[constant.pairs[pair]], model, play, option, 0, pair)
+        model_neural = load_model(path + "/neural-pair-split-" + constant.pairs[pair] + "-tf.keras")
+        build_strategy_images(decks, title, hand, constant.cards[pair], model_linear, model_polynomial, basic[constant.pairs[pair]], model_neural, play, option, 0, pair)
 
 #
 #
 #
-def build_strategy_images(decks, title, hand, total, model_linear, model_polynomial, basic, model, play, option, totalX, pairX):
+def build_strategy_images(decks, title, hand, total, model_linear, model_polynomial, basic, model_neural, play, option, totalX, pairX):
     full_title = title % (total)
     fig = build_base(-3.0, 3.0, 0.5, full_title)
     add_basic(fig, basic, constant.COLOR_ORANGE)
     add_model(fig, model_linear, constant.COLOR_RED, 'Linear')
     add_model(fig, model_polynomial, constant.COLOR_GREEN, 'Polynomial')
-    add_model_neural(fig, model, constant.COLOR_BLUE, 'Neural Network', total, play, option, totalX, pairX)
+    add_model_neural(fig, model_neural, constant.COLOR_BLUE, 'Neural Network', total, play, option, totalX, pairX)
     add_legend(fig)
     plt.savefig("./diagrams/" + decks + "/" + hand + "-" + str(total) + ".png", bbox_inches='tight')
     plt.close()
@@ -117,8 +118,9 @@ def add_model_neural(fig, model, color, label, total, play, option, totalX, pair
     y_predict = []
 
     for up in range(2, 12):
-        y_df = get_prediction(play, totalX, option, up, pairX, model)
-        y_normalized = dnn.reverse_normalize_nested_values(y_df, constant.MINIMUM_WIN, constant.MAXIMUM_WIN)
+        #y_df = neural.get_prediction(up, model)
+        y_df = get_prediction(up, model)
+        y_normalized = neural.reverse_normalize_nested_values(y_df, constant.MINIMUM_WIN, constant.MAXIMUM_WIN)
         print("neural: " + str(y_df) + " / " + str(y_normalized))
         y_predict.append(y_normalized[0])
 
@@ -146,16 +148,12 @@ def add_basic(fig, basic, color):
 #
 #
 #
-def get_prediction(play, total, option, up, pair, model):
+def get_prediction(up, model):
     new_data = {
-        'play': np.array([float(play)]),
-        'total': np.array([float(total)]),
-        'soft': np.array([float(1.0 if option == 'soft' else 0.0)]),
-        'pair': np.array([float(pair)]),
         'up': np.array([float(up)])
     }
     data_df = pd.DataFrame(new_data)
-    data_df = dnn.normalize_data_frame(data_df)
+    data_df = neural.normalize_column(data_df, 'up', min_value=constant.MINIMUM_CARD, max_value=constant.MAXIMUM_CARD)
     data_df = data_df.values.reshape(1, -1)
     return model.predict(data_df)
 
