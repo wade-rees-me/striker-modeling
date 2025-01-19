@@ -7,7 +7,6 @@
 #include "table.hpp"
 #include "player.hpp"
 #include "simulator.hpp"
-//#include "constants.hpp"
 
 //
 Simulator::Simulator(Parameters *parameters, Rules *rules, Strategy *strategy)
