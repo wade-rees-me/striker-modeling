@@ -8,7 +8,6 @@
 #include "rules.hpp"
 #include "strategy.hpp"
 #include "simulator.hpp"
-//#include "constants.hpp"
 
 //
 int main(int argc, char* argv[]) {

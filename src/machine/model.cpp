@@ -6,9 +6,9 @@
 #define PLAY_STAND 2
 #define PLAY_HIT 3
 
-const char* str_play[] = {"double", "split", "stand", "hit"};
-const char* str_cards[] = {"", "", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "ace"};
-const char* str_soft[] = {"hard", "soft", "pair"};
+const char *str_play[] = {"double", "split", "stand", "hit"};
+const char *str_cards[] = {"", "", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "ace"};
+const char *str_soft[] = {"hard", "soft", "pair"};
 
 //
 Model::Model(std::string strategy, std::string playbook) {
@@ -57,14 +57,6 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileHit << "play,soft,total,pair,up,win\n";
 
-	//filenameAll = "./data/" + playbook + "-" + strategy + ".csv";
-    //fileAll.open(filenameAll);
-    //if (!fileAll.is_open()) {
-        //std::cerr << "Error: Could not open the file." << std::endl;
-		//exit(1);
-    //}
-    //fileAll << "play,soft,total,pair,up,win\n";
-
 	filenameSummary = "./data/" + playbook + "-" + strategy + "-summary.csv";
     fileSummary.open(filenameSummary);
     if (!fileSummary.is_open()) {
@@ -87,9 +79,6 @@ Model::~Model() {
 
 	fileHit.flush();
     fileHit.close();
-
-	//fileAll.flush();
-    //fileAll.close();
 }
 
 //
@@ -118,13 +107,6 @@ void Model::writeStrategy(std::ofstream& fileOut, int play, int soft, int total,
 		return;
 	}
 
-	//fileOut << (str_play[play]) << ",";
-	//fileOut << (str_soft[soft]) << ",";
-	//fileOut << (total > 0 ? std::to_string(total) : "") << ",";
-	//fileOut << (str_cards[pair]) << ",";
-	//fileOut << (str_cards[up]) << ",";
-	//fileOut << (std::to_string(win)) << std::endl;
-
 	fileOut << (std::to_string(play)) << ",";
 	fileOut << (std::to_string(soft)) << ",";
 	fileOut << (total > 0 ? std::to_string(total) : "0") << ",";
@@ -139,14 +121,6 @@ void Model::writeStrategy(std::ofstream& fileOut, int play, int soft, int total,
 
 //
 void Model::writeAllStrategy(int play, int soft, int total, int pair, int up, int win) {
-	//fileAll << (str_play[play]) << ",";
-	//fileAll << (str_soft[soft]) << ",";
-	//fileAll << (total > 0 ? std::to_string(total) : "") << ",";
-	//fileAll << (str_cards[pair]) << ",";
-	//fileAll << (str_cards[up]) << ",";
-	//fileAll << (std::to_string(win)) << std::endl;
-	//fileAll.flush();
-
 	summary[play][soft][total][pair][up] += win;
 	count[play][soft][total][pair][up]++;
 }

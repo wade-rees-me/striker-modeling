@@ -10,7 +10,7 @@
 //#include "constants.hpp"
 
 //
-Simulator::Simulator(Parameters* parameters, Rules* rules, Strategy* strategy)
+Simulator::Simulator(Parameters *parameters, Rules *rules, Strategy *strategy)
 		: parameters(parameters), rules(rules), strategy(strategy) {
 	table = new Table(parameters, rules, strategy);
 	report = Report();
@@ -18,12 +18,10 @@ Simulator::Simulator(Parameters* parameters, Rules* rules, Strategy* strategy)
 
 // The simulator process function
 void Simulator::runDouble() {
-	//Simulation simulation;
     char buffer[MAX_BUFFER_SIZE];
 
     std::snprintf(buffer, sizeof(buffer), "  Start: simulation %s", parameters->name);
 	std::cout << buffer << std::endl;
-	//table = new Table(parameters, rules, strategy);
 	report = Report();
 	table->runDouble();
     std::snprintf(buffer, sizeof(buffer), "  End: simulation");
@@ -38,12 +36,10 @@ void Simulator::runDouble() {
 
 // The simulator process function
 void Simulator::runSplit() {
-	//Simulation simulation;
     char buffer[MAX_BUFFER_SIZE];
 
     std::snprintf(buffer, sizeof(buffer), "  Start: simulation %s", parameters->name);
 	std::cout << buffer << std::endl;
-	//table = new Table(parameters, rules, strategy);
 	report = Report();
 	table->runSplit();
     std::snprintf(buffer, sizeof(buffer), "  End: simulation");
@@ -57,12 +53,10 @@ void Simulator::runSplit() {
 
 // The simulator process function
 void Simulator::runStand() {
-	//Simulation simulation;
     char buffer[MAX_BUFFER_SIZE];
 
     std::snprintf(buffer, sizeof(buffer), "  Start: simulation %s", parameters->name);
 	std::cout << buffer << std::endl;
-	//table = new Table(parameters, rules, strategy);
 	report = Report();
 	table->runStand();
     std::snprintf(buffer, sizeof(buffer), "  End: simulation");
@@ -76,12 +70,10 @@ void Simulator::runStand() {
 
 // The simulator process function
 void Simulator::runHit() {
-	//Simulation simulation;
     char buffer[MAX_BUFFER_SIZE];
 
     std::snprintf(buffer, sizeof(buffer), "  Start: simulation %s", parameters->name);
 	std::cout << buffer << std::endl;
-	//table = new Table(parameters, rules, strategy);
 	report = Report();
 	table->runHit();
     std::snprintf(buffer, sizeof(buffer), "  End: simulation");

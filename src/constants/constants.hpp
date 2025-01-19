@@ -7,7 +7,7 @@
 // General constants
 const static std::string STRIKER_WHO_AM_I = "striker-c-plus-plus";
 const static std::string STRIKER_VERSION = "v2.01.01";	 // Epoch.Major.Minor
-const static char* TIME_LAYOUT = "%Y-%m-%d %H:%M:%S %z";
+const static char *TIME_LAYOUT = "%Y-%m-%d %H:%M:%S %z";
 
 // Define the maximum sizesstring fields
 #define MAX_STRING_SIZE 128
@@ -34,7 +34,7 @@ const static int64_t TRUE_COUNT_MULTIPLIER = 26;
 std::string getRulesUrl();
 std::string getStrategyUrl();
 std::string getSimulationUrl();
-const char* boolToString(bool b);
+const char *boolToString(bool b);
 std::string toUpperCase(std::string& str);
 
 #endif // CONSTANTS_HPP

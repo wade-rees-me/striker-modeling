@@ -8,7 +8,7 @@
 #define HARD 0
 
 // Constructor for Player
-Player::Player(Rules* rules, Strategy* strategy, int number_of_cards, std::string playbook, std::string decks)
+Player::Player(Rules *rules, Strategy *strategy, int number_of_cards, std::string playbook, std::string decks)
 		: rules(rules), strategy(strategy), wager(MINIMUM_BET, MAXIMUM_BET), number_of_cards(number_of_cards) {
 	model = new Model(playbook, decks);
 }
@@ -22,7 +22,6 @@ void Player::shuffle() {
 void Player::placeBet() {
 	splits.clear();
 	wager.reset();
-	//int bet = strategy->getBet(seen_cards);
 	int bet = 2;
 	wager.placeAmountBet(bet);
 }
@@ -52,7 +51,7 @@ void Player::playSplit(Card *up, Shoe *shoe) {
 	if (wager.isPair()) {
 		splitCard = wager.getCardPair();
 
-		Wager* split = new Wager(MINIMUM_BET, MAXIMUM_BET);
+		Wager *split = new Wager(MINIMUM_BET, MAXIMUM_BET);
 		wager.splitHand(split);
 		splits.push_back(split);
 
@@ -124,9 +123,9 @@ void Player::writeHit(Card *up) {
 }
 
 //
-void Player::playSplitHand(Wager* wager, Shoe* shoe, Card* up) {
+void Player::playSplitHand(Wager *wager, Shoe *shoe, Card *up) {
 	if (wager->isPair()) {
-		Wager* split = new Wager(MINIMUM_BET, MAXIMUM_BET);
+		Wager *split = new Wager(MINIMUM_BET, MAXIMUM_BET);
 		splits.push_back(split);
 		wager->splitHand(split);
 
@@ -147,13 +146,13 @@ void Player::playSplitHand(Wager* wager, Shoe* shoe, Card* up) {
 }
 
 // Draw a card
-void Player::drawCard(Hand* hand, Card* card) {
+void Player::drawCard(Hand *hand, Card *card) {
 	showCard(card);
 	hand->drawCard(card);
 }
 
 // Show the card
-void Player::showCard(Card* card) {
+void Player::showCard(Card *card) {
 	seen_cards[card->getValue()]++;
 }
 
@@ -185,7 +184,7 @@ void Player::payoff(bool dealer_blackjack, bool dealer_busted, int dealer_total)
 }
 
 //
-void Player::payoffHand(Wager* wager, bool dealer_blackjack, bool dealer_busted, int dealer_total) {
+void Player::payoffHand(Wager *wager, bool dealer_blackjack, bool dealer_busted, int dealer_total) {
 	if (dealer_blackjack) {
 		wager->wonInsurance();
 		if (wager->isBlackjack()) {
@@ -214,7 +213,7 @@ void Player::payoffHand(Wager* wager, bool dealer_blackjack, bool dealer_busted,
 }
 
 //
-void Player::payoffSplit(Wager* wager, bool dealer_busted, int dealer_total) {
+void Player::payoffSplit(Wager *wager, bool dealer_busted, int dealer_total) {
 	if (wager->isBusted()) {
 		wager->lost();
 	} else if (dealer_busted || (wager->getHandTotal() > dealer_total)) {

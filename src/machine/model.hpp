@@ -12,7 +12,6 @@ class Model {
     	~Model();
 
 	private:
-		//std::string buffer = "";
 		long summary[4][2][22][12][12]; // play, soft, total, pair, up
 		long count[4][2][22][12][12];
 
@@ -27,9 +26,6 @@ class Model {
 
     	std::string filenameHit;
     	std::ofstream fileHit;
-
-    	//std::string filenameAll;
-    	//std::ofstream fileAll;
 
     	std::string filenameSummary;
     	std::ofstream fileSummary;

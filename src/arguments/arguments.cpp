@@ -14,18 +14,6 @@ Arguments::Arguments(int argc, char *argv[]) {
 				std::cerr << "Number of hands must be between " << MINIMUM_NUMBER_OF_HANDS << " and " << MAXIMUM_NUMBER_OF_HANDS << std::endl;
 				std::exit(EXIT_FAILURE);
 			}
-		} else if (std::strcmp(argv[i], "-M") == 0 || std::strcmp(argv[i], "--mimic") == 0) {
-			mimic_flag = true;
-		} else if (std::strcmp(argv[i], "-B") == 0 || std::strcmp(argv[i], "--basic") == 0) {
-			basic_flag = true;
-		} else if (std::strcmp(argv[i], "-L") == 0 || std::strcmp(argv[i], "--linear") == 0) {
-			linear_flag = true;
-		} else if (std::strcmp(argv[i], "-P") == 0 || std::strcmp(argv[i], "--polynomial") == 0) {
-			polynomial_flag = true;
-		} else if (std::strcmp(argv[i], "-H") == 0 || std::strcmp(argv[i], "--high-low") == 0) {
-			high_low_flag = true;
-		} else if (std::strcmp(argv[i], "-W") == 0 || std::strcmp(argv[i], "--wong") == 0) {
-			wong_flag = true;
 		} else if (std::strcmp(argv[i], "-1") == 0 || std::strcmp(argv[i], "--single-deck") == 0) {
 			single_deck_flag = true;
 		} else if (std::strcmp(argv[i], "-2") == 0 || std::strcmp(argv[i], "--double-deck") == 0) {
@@ -57,12 +45,6 @@ void Arguments::printHelpMessage() const {
 			  << "  --help                                   Show this help message\n"
 			  << "  --version                                Display the program version\n"
 			  << "  -h, --number-of-hands <number of hands>  The number of hands to play in this simulation\n"
-			  << "  -M, --mimic                              Use the mimic dealer player strategy\n"
-			  << "  -B, --basic                              Use the basic player strategy\n"
-			  << "  -L, --linear                             Use the liner regression player strategy\n"
-			  << "  -P, --polynomial                         Use the polynomial regression player strategy\n"
-			  << "  -H, --high-low                           Use the high low count player strategy\n"
-			  << "  -W, --wong                               Use the Wong count player strategy\n"
 			  << "  -1, --single-deck                        Use a single deck of cards and rules\n"
 			  << "  -2, --double-deck                        Use a double deck of cards and rules\n"
 			  << "  -6, --six-shoe                           Use a six deck shoe of cards and rules\n"
@@ -71,21 +53,6 @@ void Arguments::printHelpMessage() const {
 
 // Function to get the current strategy as a string
 std::string Arguments::getStrategy() const {
-	if (mimic_flag) {
-		return "mimic";
-	}
-	if (polynomial_flag) {
-		return "polynomial";
-	}
-	if (linear_flag) {
-		return "linear";
-	}
-	if (high_low_flag) {
-		return "high-low";
-	}
-	if (wong_flag) {
-		return "wong";
-	}
 	return "basic";
 }
 

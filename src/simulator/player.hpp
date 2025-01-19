@@ -35,14 +35,14 @@ class Player {
 		void shuffle();
 		void placeBet();
 
-		void playDouble(Card* up, Shoe* shoe);
+		void playDouble(Card *up, Shoe *shoe);
 		void writeDouble(Card *up);
-		void playSplit(Card* up, Shoe* shoe);
+		void playSplit(Card *up, Shoe *shoe);
 		void writeSplit(Card *up);
-		void playStand(Card* up, Shoe* shoe);
-		void writeStand(Card* up);
-		void playHit(Card* up, Shoe* shoe);
-		void writeHit(Card* up);
+		void playStand(Card *up, Shoe *shoe);
+		void writeStand(Card *up);
+		void playHit(Card *up, Shoe *shoe);
+		void writeHit(Card *up);
 
 		void playSplitHand(Wager *w, Shoe *shoe, Card *up);
 		void drawCard(Hand *hand, Card *card);
