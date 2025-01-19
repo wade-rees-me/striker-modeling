@@ -23,45 +23,45 @@ TITLE_HARD_STAND = "Player should stand with hard %s vs dealer up card"
 def build_diagrams(decks, label):
     print("  Building diagrams (" + decks + ")...")
 
-    basic_chart = utility.load_json_file("./charts/" + decks + "-basic.json")
+    basic_chart = utility.load_json_file("./charts/" + decks + "-ev.json")
 
-    build_double(12, 22, decks, label + TITLE_SOFT_DOUBLE, "double-soft", "double-soft-", basic_chart["soft-double"], model, 1, 'soft')
-    build_double(4, 22, decks, label + TITLE_HARD_DOUBLE, "double-hard", "double-hard-", basic_chart["hard-double"], model, 1, 'hard')
-    build_split(2, 12, decks, label + TITLE_PAIR_SPLIT, "split-pair", basic_chart["pair-split"], model, 2, 'hard')
-    build_double(12, 22, decks, label + TITLE_SOFT_STAND, "stand-soft", "stand-soft-", basic_chart["soft-stand"], model, 3, 'soft')
-    build_double(4, 22, decks, label + TITLE_HARD_STAND, "stand-hard", "stand-hard-", basic_chart["hard-stand"], model, 3, 'hard')
+    build_double(12, 21, decks, label + TITLE_SOFT_DOUBLE, "double-soft", "double-soft-", basic_chart["soft-double"], 1, 'soft', 'Soft Double')
+    build_double(4, 21, decks, label + TITLE_HARD_DOUBLE, "double-hard", "double-hard-", basic_chart["hard-double"], 1, 'hard', 'Hard Double')
+    build_split(2, 12, decks, label + TITLE_PAIR_SPLIT, "split-pair", "split-pair-", basic_chart["pair-split"], 2, 'hard')
+    build_double(12, 21, decks, label + TITLE_SOFT_STAND, "stand-soft", "stand-soft-", basic_chart["soft-stand"], 3, 'soft', 'Soft Stand')
+    build_double(4, 21, decks, label + TITLE_HARD_STAND, "stand-hard", "stand-hard-", basic_chart["hard-stand"], 3, 'hard', 'Hard Stand')
 
 #
 #
 #
-def build_double(beg, end, decks, title, hand, option, basic, model, playX, optionX):
+def build_double(beg, end, decks, title, hand, option, basic, playX, optionX, label):
     path = "./models/" + decks + "/"
     for total in range(beg, end):
-        print("Double: " + str(total))
+        print(label + ": " + str(total))
         model_linear = utility.load_json_file(path + "linear-" + option + str(total) + ".json")
         model_polynomial = utility.load_json_file(path + "polynomial-" + option + str(total) + ".json")
-        model_neural = load_model(path + "/neural-double-" + optionX + "-" + str(total) + "-tf.keras")
+        model_neural = load_model(path + "/neural-" + option + str(total) + "-tf.keras")
         build_strategy_images(decks, title, hand, str(total), model_linear, model_polynomial, basic[str(total)], model_neural, playX, optionX, total, 0)
 
 #
 #
 #
-def build_split(beg, end, decks, title, hand, basic, model, play, option):
+def build_split(beg, end, decks, title, hand, option, basic, playX, optionX):
     path = "./models/" + decks + "/"
     print(basic)
     for pair in range(beg, end):
-        print("Split: " + str(pair))
+        print("Pair Split: " + str(pair))
         model_linear = utility.load_json_file(path + "linear-pair-split-" + constant.pairs[pair] + ".json")
         model_polynomial = utility.load_json_file(path + "polynomial-pair-split-" + constant.pairs[pair] + ".json")
         model_neural = load_model(path + "/neural-pair-split-" + constant.pairs[pair] + "-tf.keras")
-        build_strategy_images(decks, title, hand, constant.cards[pair], model_linear, model_polynomial, basic[constant.pairs[pair]], model_neural, play, option, 0, pair)
+        build_strategy_images(decks, title, hand, constant.cards[pair], model_linear, model_polynomial, basic[constant.pairs[pair]], model_neural, playX, optionX, 0, pair)
 
 #
 #
 #
 def build_strategy_images(decks, title, hand, total, model_linear, model_polynomial, basic, model_neural, play, option, totalX, pairX):
     full_title = title % (total)
-    fig = build_base(-3.0, 3.0, 0.5, full_title)
+    fig = build_base(-3.5, 3.5, 0.5, full_title)
     add_basic(fig, basic, constant.COLOR_ORANGE)
     add_model(fig, model_linear, constant.COLOR_RED, 'Linear')
     add_model(fig, model_polynomial, constant.COLOR_GREEN, 'Polynomial')
@@ -87,7 +87,7 @@ def build_base(y_min, y_max, y_step, title):
     plt.ylabel("Expected value in units", fontsize = 16)
     plt.title(title, fontsize = 18)
 
-    for i in range(0, 13):
+    for i in range(2, 12):
         plt.axvline(i, color='lightgrey')
     plt.axhline(0, color='black', linewidth=1.0)
 
@@ -99,7 +99,7 @@ def add_model(fig, model, color, label):
     new_data = {
         'up': [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     }
-    print(new_data)
+    #print(new_data)
     new_data_df = pd.DataFrame(new_data)
     y_predict = model['predictions']
     metrics = model['metrics']
@@ -140,10 +140,12 @@ def add_legend(fig):
 #
 #
 def add_basic(fig, basic, color):
-    print(basic)
+    #print(basic)
     x = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    y = [-1 if value == 'N' else 1 for value in basic]
-    plt.plot(x, y, marker='x', label='Basic strategy', color=color, linestyle="--", markersize=10) 
+    y = [float(value) * 2.0 for value in basic]
+
+    #plt.plot(x, y, marker='x', label='Calculated Expected Value', color=color, linestyle="--", markersize=10) 
+    plt.plot(x, y, label='Approximation of Expected Values', color=color, linestyle="--") 
 
 #
 #
