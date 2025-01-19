@@ -43,10 +43,10 @@ Shoe::Shoe(int number_of_decks, float penetration) {
 			cards.push_back(new Card(suits[j], SEVEN, "7", 7));
 			cards.push_back(new Card(suits[j], EIGHT, "8", 8));
 			cards.push_back(new Card(suits[j], NINE, "9", 9));
-			cards.push_back(new Card(suits[j], TEN, "T", 10));
-			cards.push_back(new Card(suits[j], JACK, "J", 10));
-			cards.push_back(new Card(suits[j], QUEEN, "Q", 10));
-			cards.push_back(new Card(suits[j], KING, "K", 10));
+			cards.push_back(new Card(suits[j], TEN, "X", 10));
+			cards.push_back(new Card(suits[j], JACK, "X", 10));
+			cards.push_back(new Card(suits[j], QUEEN, "X", 10));
+			cards.push_back(new Card(suits[j], KING, "X", 10));
 			cards.push_back(new Card(suits[j], ACE, "A", 11));
 		}
 	}
