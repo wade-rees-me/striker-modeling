@@ -10,6 +10,13 @@ class Arguments {
 		Arguments(int argc, char *argv[]);
 
 	private:
+		bool mimic_flag = false;
+		bool basic_flag = false;
+		bool neural_flag = false;
+		bool linear_flag = false;
+		bool polynomial_flag = false;
+		bool high_low_flag = false;
+		bool wong_flag = false;
 		bool single_deck_flag = false;
 		bool double_deck_flag = false;
 		bool six_shoe_flag = false;
