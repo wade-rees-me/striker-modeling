@@ -195,7 +195,6 @@ void Player::payoffHand(Wager *wager, bool dealer_blackjack, bool dealer_busted,
 	} else {
 		wager->lostInsurance();
 		if (wager->isBlackjack()) {
-//printf("Player blackjack\n");
 			wager->wonBlackjack(rules->blackjack_pays, rules->blackjack_bets);
 		} else if (wager->isBusted()) {
 			wager->lost();
