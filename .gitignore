@@ -31,9 +31,15 @@
 *.out
 *.app
 
-charts
-diagrams
-models
+#charts
+#diagrams
+#models
 bin
+
+# Copy from striker-c-plus-plus
+src/arguments
+src/constants
+src/cards
+src/table
 
 __pycache__

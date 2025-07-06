@@ -12,6 +12,8 @@ const char *str_soft[] = {"hard", "soft", "pair"};
 
 //
 Model::Model(std::string strategy, std::string playbook) {
+ 	std::string dataPath = getResourcesUrl() + "/data/" + playbook + "-" + strategy;
+
 	for (int p = 0; p < 4; p++) {
 		for (int s = 0; s < 2; s++) {
 			for (int t = 0; t <= 21; t++) {
@@ -25,7 +27,7 @@ Model::Model(std::string strategy, std::string playbook) {
 		}
 	}
 
-	filenameDouble = "./data/" + playbook + "-" + strategy + "-double.csv";
+	filenameDouble = dataPath + "-double.csv";
     fileDouble.open(filenameDouble);
     if (!fileDouble.is_open()) {
         std::cerr << "Error: Could not open the file: " << filenameDouble << std::endl;
@@ -33,7 +35,7 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileDouble << "play,soft,total,pair,up,win\n";
 
-	filenameSplit = "./data/" + playbook + "-" + strategy + "-split.csv";
+	filenameSplit = dataPath + "-split.csv";
     fileSplit.open(filenameSplit);
     if (!fileSplit.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
@@ -41,7 +43,7 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileSplit << "play,soft,total,pair,up,win\n";
 
-	filenameStand = "./data/" + playbook + "-" + strategy + "-stand.csv";
+	filenameStand = dataPath + "-stand.csv";
     fileStand.open(filenameStand);
     if (!fileStand.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
@@ -49,7 +51,7 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileStand << "play,soft,total,pair,up,win\n";
 
-	filenameHit = "./data/" + playbook + "-" + strategy + "-hit.csv";
+	filenameHit = dataPath + "-hit.csv";
     fileHit.open(filenameHit);
     if (!fileHit.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;
@@ -57,7 +59,7 @@ Model::Model(std::string strategy, std::string playbook) {
     }
     fileHit << "play,soft,total,pair,up,win\n";
 
-	filenameSummary = "./data/" + playbook + "-" + strategy + "-summary.csv";
+	filenameSummary = dataPath + "-summary.csv";
     fileSummary.open(filenameSummary);
     if (!fileSummary.is_open()) {
         std::cerr << "Error: Could not open the file." << std::endl;

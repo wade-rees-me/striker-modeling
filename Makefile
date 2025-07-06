@@ -18,7 +18,7 @@ SRC_FILES = $(wildcard $(SRC_DIR)/main.cpp $(foreach dir, $(SRC_DIRS), $(SRC_DIR
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 
 # Output binary
-TARGET = bin/strikerC++
+TARGET = bin/striker-modeling
 
 # Default target
 all: $(TARGET)
@@ -37,9 +37,14 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 clean:
 	rm -f $(OBJ_DIR)/*.o $(OBJ_DIR)/*/*.o $(TARGET)
 
-run-command:
+bear:
+	bear -- make clean all
+
+sync-c-plus-plus:
 	@echo "Running a command in a Makefile"
+	@echo "cp striker-c++/src/cards src/arguments"
+	@echo "cp striker-c++/src/cards src/constants"
 	@echo "cp striker-c++/src/cards src/cards"
 	@echo "cp striker-c++/src/table src/table"
-	@ls -l
+	@tree src
 

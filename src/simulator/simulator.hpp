@@ -26,11 +26,11 @@ class Simulator {
 		void runSplit();
 		void runStand();
 		void runHit();
-		void simulatorRunOnce();
 		void write();
 
 	private:
-		void simulatorInsert(Simulation *sdt, std::string playbook);
+		void beg();
+		void end();
 };
 
 #endif // SIMULATOR_HPP

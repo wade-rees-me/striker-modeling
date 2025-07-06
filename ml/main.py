@@ -1,4 +1,8 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
+
+import os
+
+os.environ["XLA_FLAGS"] = "--xla_gpu_cuda_data_dir=/usr/lib/nvidia-cuda-toolkit/nvvm"
 
 import sys
 
@@ -41,4 +45,3 @@ if __name__ == "__main__":
         diagram.build_diagrams(constant.SIX_SHOE, "Six Shoe: ")
 
     print("Ending...\n")
-
