@@ -1,7 +1,6 @@
 #ifndef TABLE_HPP
 #define TABLE_HPP
 
-#include <cstdint>
 #include "parameters.hpp"
 #include "rules.hpp"
 #include "player.hpp"

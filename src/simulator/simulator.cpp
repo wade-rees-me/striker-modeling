@@ -1,14 +1,4 @@
 #include "simulator.hpp"
-//
-//#include <cjson/cJSON.h>
-//#include <curl/curl.h>
-
-#include <cstdio>
-#include <ctime>
-#include <iostream>
-#include <string>
-
-//#include "player.hpp"
 #include "table.hpp"
 
 //

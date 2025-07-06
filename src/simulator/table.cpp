@@ -1,11 +1,4 @@
 #include "table.hpp"
-
-#include <cstdio>
-#include <ctime>
-#include <iomanip>
-#include <iostream>
-#include <string>
-
 #include "shoe.hpp"
 
 //
@@ -36,7 +29,6 @@ void Table::runDouble() {
   while (report.total_hands < parameters->number_of_hands) {
     status(report.total_rounds, report.total_hands);
     shoe->shuffle();
-    // player->shuffle();
     report.total_rounds++;
 
     while (!shoe->shouldShuffle()) {
@@ -54,13 +46,10 @@ void Table::runDouble() {
         while (!dealer->shouldStand()) {
           Card *card = shoe->drawCard();
           dealer->drawCard(card);
-          // player->showCard(card);
         }
       }
 
-      // player->showCard(down);
-      player->payoff(dealer->isBlackjack(), dealer->isBusted(),
-                     dealer->getHandTotal());
+      player->payoff(dealer->isBlackjack(), dealer->isBusted(), dealer->getHandTotal());
       player->writeDouble(up);
     }
   }
@@ -75,8 +64,7 @@ void Table::runDouble() {
 //
 void Table::runSplit() {
   char buffer[256];
-  std::snprintf(buffer, sizeof(buffer), "    Start: table, playing %ld hands",
-                parameters->number_of_hands);
+  std::snprintf(buffer, sizeof(buffer), "    Start: table, playing %ld hands", parameters->number_of_hands);
   std::cout << buffer << std::endl;
 
   report.start = std::time(nullptr);
@@ -85,7 +73,6 @@ void Table::runSplit() {
   while (report.total_hands < parameters->number_of_hands) {
     status(report.total_rounds, report.total_hands);
     shoe->shuffle();
-    player->shuffle();
     report.total_rounds++;
 
     while (!shoe->shouldShuffle()) {
@@ -101,14 +88,11 @@ void Table::runSplit() {
             while (!dealer->shouldStand()) {
               Card *card = shoe->drawCard();
               dealer->drawCard(card);
-              player->showCard(card);
             }
           }
         }
 
-        player->showCard(down);
-        player->payoff(dealer->isBlackjack(), dealer->isBusted(),
-                       dealer->getHandTotal());
+        player->payoff(dealer->isBlackjack(), dealer->isBusted(), dealer->getHandTotal());
         player->writeSplit(up);
       }
     }
@@ -124,8 +108,7 @@ void Table::runSplit() {
 //
 void Table::runStand() {
   char buffer[256];
-  std::snprintf(buffer, sizeof(buffer), "    Start: table, playing %ld hands",
-                parameters->number_of_hands);
+  std::snprintf(buffer, sizeof(buffer), "    Start: table, playing %ld hands", parameters->number_of_hands);
   std::cout << buffer << std::endl;
 
   report.start = std::time(nullptr);
@@ -134,7 +117,6 @@ void Table::runStand() {
   while (report.total_hands < parameters->number_of_hands) {
     status(report.total_rounds, report.total_hands);
     shoe->shuffle();
-    player->shuffle();
     report.total_rounds++;
 
     while (!shoe->shouldShuffle()) {
@@ -152,13 +134,10 @@ void Table::runStand() {
         while (!dealer->shouldStand()) {
           Card *card = shoe->drawCard();
           dealer->drawCard(card);
-          // player->showCard(card);
         }
       }
 
-      // player->showCard(down);
-      player->payoff(dealer->isBlackjack(), dealer->isBusted(),
-                     dealer->getHandTotal());
+      player->payoff(dealer->isBlackjack(), dealer->isBusted(), dealer->getHandTotal());
       player->writeStand(up);
     }
   }
@@ -173,8 +152,7 @@ void Table::runStand() {
 //
 void Table::runHit() {
   char buffer[256];
-  std::snprintf(buffer, sizeof(buffer), "    Start: table, playing %ld hands",
-                parameters->number_of_hands);
+  std::snprintf(buffer, sizeof(buffer), "    Start: table, playing %ld hands", parameters->number_of_hands);
   std::cout << buffer << std::endl;
 
   report.start = std::time(nullptr);
@@ -183,7 +161,6 @@ void Table::runHit() {
   while (report.total_hands < parameters->number_of_hands) {
     status(report.total_rounds, report.total_hands);
     shoe->shuffle();
-    player->shuffle();
     report.total_rounds++;
 
     while (!shoe->shouldShuffle()) {
@@ -201,13 +178,10 @@ void Table::runHit() {
         while (!dealer->shouldStand()) {
           Card *card = shoe->drawCard();
           dealer->drawCard(card);
-          // player->showCard(card);
         }
       }
 
-      // player->showCard(down);
-      player->payoff(dealer->isBlackjack(), dealer->isBusted(),
-                     dealer->getHandTotal());
+      player->payoff(dealer->isBlackjack(), dealer->isBusted(), dealer->getHandTotal());
       player->writeHit(up);
     }
   }
@@ -224,7 +198,6 @@ void Table::dealCards(Hand *hand) {
   player->drawCard(hand, shoe->drawCard());
   up = shoe->drawCard();
   dealer->drawCard(up);
-  // player->showCard(up);
 
   player->drawCard(hand, shoe->drawCard());
   down = shoe->drawCard();

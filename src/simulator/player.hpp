@@ -32,7 +32,6 @@ class Player {
 		bool soft;
 
 	public:
-		void shuffle();
 		void placeBet();
 
 		void playDouble(Card *up, Shoe *shoe);
@@ -46,7 +45,6 @@ class Player {
 
 		void playSplitHand(Wager *w, Shoe *shoe, Card *up);
 		void drawCard(Hand *hand, Card *card);
-		void showCard(Card *card);
 		bool bustedOrBlackjack() const;
 		void payoff(bool dealer_blackjack, bool dealer_busted, int dealer_total);
 		void payoffHand(Wager *w, bool dealer_blackjack, bool dealer_busted, int dealer_total);

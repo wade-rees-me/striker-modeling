@@ -1,12 +1,10 @@
 #ifndef SIMULATOR_HPP
 #define SIMULATOR_HPP
 
-#include <string>
 #include "parameters.hpp"
 #include "rules.hpp"
 #include "table.hpp"
 #include "report.hpp"
-#include "simulation.hpp"
 #include "strategy.hpp"
 
 //

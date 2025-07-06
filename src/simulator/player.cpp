@@ -1,6 +1,3 @@
-#include <iostream>
-#include <cstdlib>
-#include <cstring>
 #include "shoe.hpp"
 #include "player.hpp"
 
@@ -13,17 +10,11 @@ Player::Player(Rules *rules, Strategy *strategy, int number_of_cards, std::strin
 	model = new Model(playbook, decks);
 }
 
-// Shuffle function (reinitializes seen cards)
-void Player::shuffle() {
-	std::memset(seen_cards, 0, sizeof(seen_cards));
-}
-
 // Place a bet for the player
 void Player::placeBet() {
 	splits.clear();
 	wager.reset();
-	int bet = 2;
-	wager.placeAmountBet(bet);
+	wager.placeAmountBet(MINIMUM_BET);
 }
 
 // Play the hand
@@ -147,13 +138,7 @@ void Player::playSplitHand(Wager *wager, Shoe *shoe, Card *up) {
 
 // Draw a card
 void Player::drawCard(Hand *hand, Card *card) {
-	showCard(card);
 	hand->drawCard(card);
-}
-
-// Show the card
-void Player::showCard(Card *card) {
-	seen_cards[card->getValue()]++;
 }
 
 // Check if player busted or has blackjack

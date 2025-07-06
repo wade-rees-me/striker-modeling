@@ -3,10 +3,6 @@
 #include "rules.hpp"
 #include "simulator.hpp"
 #include "strategy.hpp"
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <string>
 
 //
 int main(int argc, char *argv[]) {
@@ -26,11 +22,9 @@ int main(int argc, char *argv[]) {
   simulator.runSplit();
   simulator.runStand();
   simulator.runHit();
-
   simulator.write();
 
   std::cout << "End: " << STRIKER_WHO_AM_I << std::endl;
-
   return 0;
 }
 
